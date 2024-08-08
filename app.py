@@ -48,6 +48,13 @@ df['Mede Opportunity Score'] = (
 # Round all numerical values to 2 decimal places
 df = df.round(2)
 
+# Add performance categories
+df['Performance Category'] = pd.cut(
+    df['Mede Opportunity Score'],
+    bins=[-np.inf, -0.5, 0.5, np.inf],
+    labels=['Low performers', 'Average performers', 'High performers']
+)
+
 # Streamlit app
 st.title("Mede Opportunity Score Example")
 
@@ -56,6 +63,17 @@ st.write("""
 Below we show the Mede Opportunity Score. This score takes multiple quality and cost aspects of members, adjusts, normalizes, and sums them to create a composite score. Negative values mean members are below average, and positive values mean members are above average relative to other members.
 """)
 
-# Display the dataframe
-st.dataframe(df)
+# Allow users to select a performance category to filter the data
+performance_category = st.selectbox(
+    "Select a Performance Category to Filter",
+    options=['All', 'High performers', 'Average performers', 'Low performers']
+)
 
+# Filter the dataframe based on the selected performance category
+if performance_category != 'All':
+    filtered_df = df[df['Performance Category'] == performance_category]
+else:
+    filtered_df = df
+
+# Display the filtered dataframe
+st.dataframe(filtered_df)
