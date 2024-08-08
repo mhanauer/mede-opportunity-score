@@ -60,7 +60,13 @@ st.title("Mede Opportunity Score Example")
 
 # Add explanatory text
 st.write("""
-Below we show the Mede Opportunity Score. This score takes multiple quality and cost aspects of members, adjusts, normalizes, and sums them to create a composite score. Negative values mean members are below average, and positive values mean members are above average relative to other members.
+Below we show the Mede Opportunity Score. This score takes multiple quality and cost aspects of members, adjusts, normalizes, and sums them up to create a composite score. Generally, negative values mean members are below average, and positive values mean members are above average relative to other members.
+
+We created a performance category based on these thresholds:
+High performers: >.5
+Average performers: <=.5 and >= -.5
+Low performers: < -.5
+
 """)
 
 # Allow users to select a performance category to filter the data
